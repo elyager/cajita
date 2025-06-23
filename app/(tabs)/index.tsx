@@ -119,12 +119,7 @@ export default function CameraScreen() {
         mode="picture"
       >
         {/* Header Controls */}
-        <View style={{
-          position: 'absolute',
-          top: Platform.OS === 'ios' ? 60 : 40,
-          right: 20,
-          zIndex: 1,
-        }}>
+        <View>
           <TouchableOpacity
             className="w-12 h-12 rounded-full bg-black/50 justify-center items-center mb-2"
             onPress={toggleFlash}
