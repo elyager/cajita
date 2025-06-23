@@ -1,0 +1,29 @@
+### Core
+
+- Expo SDK 53, React 19, react-native 0.79.3
+- TypeScript 5.8
+- Use react-native-gesture-handler
+- zustand for state management
+- Tankstank query for ****asynchronous state management
+- React Navigation
+- Zod for schema validation.
+- Jest, React Testing Library and Playwright for testing
+- eslint and pretteir
+
+### Navigation & layout
+
+- react-navigation , react-native-gesture-handler, react-native-reanimated for smooth gestures & animations
+- react-native-screens, react-native-safe-area-context
+
+### Single purpose UI modules
+
+- @discord/bottom-sheet (bottom-sheet component)
+- react-native-progress (progress bars/circles)
+- @mattermost/react-native-paste-input (rich paste handler)
+- react-native-qrcode-styled (QR code renderer)
+- react-native-safe-area-context, react-native-root-siblings (overlays, toasts, portals)
+
+### Icons & Typography
+
+- @expo/vector-icons + @fortawesome/react-native-fontawesome
+- expo-font for custom font loading
