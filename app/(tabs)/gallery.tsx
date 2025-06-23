@@ -43,6 +43,7 @@
     "react-native-webview": "13.13.5",
     "tailwindcss": "^4.1.10"
           className="p-2"
+  }
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",

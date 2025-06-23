@@ -41,9 +41,10 @@
       <View 
     "tailwindcss": "^4.1.10"
         className="absolute left-5 z-10"
-}
+  }
         style={{ top: Platform.OS === 'ios' ? 60 : 40 }}
 
       >
           className="w-full"
           style={{ height: screenHeight * 0.8 }}
+}
