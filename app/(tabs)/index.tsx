@@ -109,16 +109,24 @@ export default function CameraScreen() {
   }
 
   return (
-    <View className="flex-1 bg-black">
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      
-      <CameraView
-        ref={cameraRef}
-        className="flex-1 w-full h-full"
-        facing={facing}
-        flash={flash}
-        mode="picture"
-      >
+      <View className="flex-1 bg-black" style={{ paddingTop: 0, paddingBottom: 0 }}>
+        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+        
+        <CameraView
+          ref={cameraRef}
+          style={{ 
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: screenWidth,
+            height: screenHeight 
+          }}
+          facing={facing}
+          flash={flash}
+          mode="picture"
+        >
         {/* Header Controls */}
         <SafeAreaView className="absolute top-0 left-0 right-0 z-10">
           <View className="flex-row justify-end px-5 pt-4">
