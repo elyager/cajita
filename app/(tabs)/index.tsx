@@ -133,13 +133,7 @@ export default function CameraScreen() {
         </View>
 
         {/* Bottom Controls */}
-        <View style={{
-          position: 'absolute',
-          bottom: Platform.OS === 'ios' ? 120 : 100,
-          left: 0,
-          right: 0,
-          paddingHorizontal: 20,
-        }}>
+        <View>
           <View className="flex-row justify-between items-center">
             {/* Flip Camera Button */}
             <TouchableOpacity
