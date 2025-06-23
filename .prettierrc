@@ -1,6 +1,14 @@
 {
-  "useTabs": false,
-  "bracketSpacing": true,
-  "singleQuote": true,
-  "tabWidth": 2
+"printWidth": 100,            
+"tabWidth": 2,
+"useTabs": false,
+"semi": true,
+"singleQuote": true,
+"jsxSingleQuote": true,
+"trailingComma": "all",        
+"bracketSpacing": true,
+"bracketSameLine": false,
+"arrowParens": "avoid",
+"endOfLine": "lf",
+"objectWrap": "preserve"       // New option
 }
