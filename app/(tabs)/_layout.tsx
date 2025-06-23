@@ -33,7 +33,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Camera',
+          title: 'CAMARA!',
           tabBarIcon: ({ size, color }) => (
             <Camera size={size + 4} color={color} />
           ),
