@@ -97,12 +97,7 @@ export function PhotoPreview({ photoUri, onRetake, onSave }: PhotoPreviewProps) 
       </View>
 
       {/* Header with close button */}
-      <View style={{
-        position: 'absolute',
-        top: Platform.OS === 'ios' ? 60 : 40,
-        left: 20,
-        zIndex: 1,
-      }}>
+      <View>
         <TouchableOpacity
           className="w-12 h-12 rounded-full bg-black/50 justify-center items-center"
           onPress={onRetake}
