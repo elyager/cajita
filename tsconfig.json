@@ -9,7 +9,7 @@
     // Module Resolution
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./*"]
     },
     "resolveJsonModule": true,
     "esModuleInterop": true,
