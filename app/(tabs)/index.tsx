@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Alert,
   Dimensions,
@@ -28,9 +27,9 @@ export default function CameraScreen() {
   // Show loading while permissions are being checked
   if (!permission) {
     return (
-      <View style={styles.loadingContainer}>
+      <View className="flex-1 bg-black justify-center items-center">
         <Loader2 size={48} color="#fff" />
-        <Text style={styles.loadingText}>Loading camera...</Text>
+        <Text className="text-white text-base mt-4 font-medium">Loading camera...</Text>
       </View>
     );
   }
@@ -38,17 +37,17 @@ export default function CameraScreen() {
   // Request permission if not granted
   if (!permission.granted) {
     return (
-      <View style={styles.permissionContainer}>
-        <Camera size={80} color="#fff" style={styles.permissionIcon} />
-        <Text style={styles.permissionTitle}>Camera Access Required</Text>
-        <Text style={styles.permissionText}>
+      <View className="flex-1 bg-black justify-center items-center p-5">
+        <Camera size={80} color="#fff" className="mb-7 opacity-80" />
+        <Text className="text-2xl font-bold text-white text-center mb-4">Camera Access Required</Text>
+        <Text className="text-base text-gray-300 text-center leading-6 mb-10">
           We need access to your camera to take photos. Your privacy is important to us.
         </Text>
         <TouchableOpacity
-          style={styles.permissionButton}
+          className="bg-blue-500 px-7 py-4 rounded-xl min-w-[200px]"
           onPress={requestPermission}
         >
-          <Text style={styles.permissionButtonText}>Grant Camera Permission</Text>
+          <Text className="text-white text-base font-semibold text-center">Grant Camera Permission</Text>
         </TouchableOpacity>
       </View>
     );
@@ -109,20 +108,26 @@ export default function CameraScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-black">
       <StatusBar barStyle="light-content" backgroundColor="#000" />
       
       <CameraView
         ref={cameraRef}
-        style={styles.camera}
+        className="flex-1"
+        style={{ width: screenWidth, height: screenHeight }}
         facing={facing}
         flash={flash}
         mode="picture"
       >
         {/* Header Controls */}
-        <View style={styles.headerControls}>
+        <View style={{
+          position: 'absolute',
+          top: Platform.OS === 'ios' ? 60 : 40,
+          right: 20,
+          zIndex: 1,
+        }}>
           <TouchableOpacity
-            style={styles.controlButton}
+            className="w-12 h-12 rounded-full bg-black/50 justify-center items-center mb-2"
             onPress={toggleFlash}
           >
             {flash === 'on' ? (
@@ -134,11 +139,17 @@ export default function CameraScreen() {
         </View>
 
         {/* Bottom Controls */}
-        <View style={styles.bottomControls}>
-          <View style={styles.controlsRow}>
+        <View style={{
+          position: 'absolute',
+          bottom: Platform.OS === 'ios' ? 120 : 100,
+          left: 0,
+          right: 0,
+          paddingHorizontal: 20,
+        }}>
+          <View className="flex-row justify-between items-center">
             {/* Flip Camera Button */}
             <TouchableOpacity
-              style={styles.secondaryButton}
+              className="w-12 h-12 rounded-full bg-white/20 justify-center items-center"
               onPress={toggleCameraFacing}
             >
               <RotateCcw size={24} color="#fff" />
@@ -146,14 +157,18 @@ export default function CameraScreen() {
 
             {/* Capture Button */}
             <TouchableOpacity
-              style={[
-                styles.captureButton,
-                isCapturing && styles.capturingButton
-              ]}
+              className={`w-20 h-20 rounded-full bg-white justify-center items-center ${isCapturing ? 'opacity-70' : ''}`}
+              style={{
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+              }}
               onPress={takePicture}
               disabled={isCapturing}
             >
-              <View style={styles.captureButtonInner}>
+              <View className="w-[70px] h-[70px] rounded-full bg-white justify-center items-center border-4 border-black">
                 {isCapturing ? (
                   <Loader2 size={28} color="#000" />
                 ) : (
@@ -163,136 +178,10 @@ export default function CameraScreen() {
             </TouchableOpacity>
 
             {/* Placeholder for symmetry */}
-            <View style={styles.secondaryButton} />
+            <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center" />
           </View>
         </View>
       </CameraView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    color: '#fff',
-    fontSize: 16,
-    marginTop: 16,
-    fontWeight: '500',
-  },
-  permissionContainer: {
-    flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  permissionIcon: {
-    marginBottom: 30,
-    opacity: 0.8,
-  },
-  permissionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  permissionText: {
-    fontSize: 16,
-    color: '#ccc',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 40,
-  },
-  permissionButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 30,
-    paddingVertical: 16,
-    borderRadius: 12,
-    minWidth: 200,
-  },
-  permissionButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  camera: {
-    flex: 1,
-    width: screenWidth,
-    height: screenHeight,
-  },
-  headerControls: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 40,
-    right: 20,
-    zIndex: 1,
-  },
-  controlButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  bottomControls: {
-    position: 'absolute',
-    bottom: Platform.OS === 'ios' ? 120 : 100,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 20,
-  },
-  controlsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  secondaryButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  captureButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  capturingButton: {
-    opacity: 0.7,
-  },
-  captureButtonInner: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 3,
-    borderColor: '#000',
-  },
-});
