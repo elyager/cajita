@@ -1,10 +1,31 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    // Type Checking
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    
+    // Module Resolution
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    
+    // Language and Environment
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    
+    // Emit
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   "include": [
     "**/*.ts",
@@ -12,5 +33,10 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
   ]
 }
