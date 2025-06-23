@@ -1,53 +1,51 @@
-import { Tabs } from 'expo-router';
-import { Camera, Image, Settings } from 'lucide-react-native';
-import { Platform } from 'react-native';
-
-export default function TabLayout() {
-  return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#000',
-          borderTopWidth: 0,
-          height: Platform.OS === 'ios' ? 90 : 70,
-          paddingTop: 10,
-          paddingBottom: Platform.OS === 'ios' ? 25 : 10,
-        },
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: '#666',
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-        },
-      }}>
-      <Tabs.Screen
-        name="gallery"
-        options={{
-          title: 'Gallery',
-          tabBarIcon: ({ size, color }) => (
-            <Image size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Camera',
-          tabBarIcon: ({ size, color }) => (
-            <Camera size={size + 4} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({ size, color }) => (
-            <Settings size={size} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+{
+  "name": "bolt-expo-starter",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "EXPO_NO_TELEMETRY=1 expo start",
+    "build:web": "expo export --platform web",
+    "lint": "expo lint"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^14.1.0",
+    "@lucide/lab": "^0.1.2",
+    "@react-navigation/bottom-tabs": "^7.2.0",
+    "@react-navigation/native": "^7.0.14",
+    "expo": "^53.0.0",
+    "expo-blur": "~14.1.3",
+    "expo-camera": "~16.1.5",
+    "expo-constants": "~17.1.3",
+    "expo-font": "~13.2.2",
+    "expo-haptics": "~14.1.3",
+    "expo-linear-gradient": "~14.1.3",
+    "expo-linking": "~7.1.3",
+    "expo-media-library": "~17.1.4",
+    "expo-router": "~5.0.2",
+    "expo-splash-screen": "~0.30.6",
+    "expo-status-bar": "~2.2.2",
+    "expo-symbols": "~0.4.3",
+    "expo-system-ui": "~5.0.5",
+    "expo-web-browser": "~14.1.5",
+    "lucide-react-native": "^0.475.0",
+    "nativewind": "^4.1.23",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.1",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-safe-area-context": "^5.3.0",
+    "react-native-screens": "~4.10.0",
+    "react-native-svg": "15.11.2",
+    "react-native-url-polyfill": "^2.0.0",
+    "react-native-web": "^0.20.0",
+    "react-native-webview": "13.13.5",
+    "tailwindcss": "^4.1.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/react": "~19.0.10",
+    "typescript": "~5.8.3"
+  }
 }

@@ -1,156 +1,49 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-  Alert,
-  Platform,
-} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useRouter } from 'expo-router';
-import { X, Check, RotateCcw, Download, Loader as Loader2 } from 'lucide-react-native';
-import * as MediaLibrary from 'expo-media-library';
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-
-interface PhotoPreviewProps {
-  photoUri: string;
-  onRetake: () => void;
-  onSave: () => void;
+{
+  "name": "bolt-expo-starter",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "EXPO_NO_TELEMETRY=1 expo start",
+    "build:web": "expo export --platform web",
+      <View 
+        className="absolute left-0 right-0 px-5"
+        style={{ bottom: Platform.OS === 'ios' ? 120 : 100 }}
+      >
+    "expo": "^53.0.0",
+    "expo-blur": "~14.1.3",
+    "expo-camera": "~16.1.5",
+            className="bg-white/20 px-6 py-4 rounded-full items-center w-32 border border-white/30"
+    "expo-font": "~13.2.2",
+    "expo-haptics": "~14.1.3",
+    "expo-linear-gradient": "~14.1.3",
+    "expo-linking": "~7.1.3",
+    "expo-media-library": "~17.1.4",
+    "expo-router": "~5.0.2",
+    "expo-splash-screen": "~0.30.6",
+    "expo-status-bar": "~2.2.2",
+    "expo-symbols": "~0.4.3",
+            className="bg-blue-500 border-blue-500 px-6 py-4 rounded-full items-center w-32 border"
+    "expo-web-browser": "~14.1.5",
+    "lucide-react-native": "^0.475.0",
+    "nativewind": "^4.1.23",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.1",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-safe-area-context": "^5.3.0",
+    "react-native-screens": "~4.10.0",
+    "react-native-svg": "15.11.2",
+    "react-native-url-polyfill": "^2.0.0",
+    "react-native-web": "^0.20.0",
+    "react-native-webview": "13.13.5",
+      <View 
+    "tailwindcss": "^4.1.10"
+        className="absolute left-5 z-10"
 }
+        style={{ top: Platform.OS === 'ios' ? 60 : 40 }}
 
-export function PhotoPreview({ photoUri, onRetake, onSave }: PhotoPreviewProps) {
-  const [isSaving, setIsSaving] = useState(false);
-  const [mediaPermission, requestMediaPermission] = MediaLibrary.usePermissions();
-  const router = useRouter();
-
-  const handleSave = async () => {
-    try {
-      setIsSaving(true);
-
-      // Check if we have media library permissions
-      if (Platform.OS !== 'web' && !mediaPermission?.granted) {
-        const { granted } = await requestMediaPermission();
-        if (!granted) {
-          Alert.alert(
-            'Permission Required',
-            'We need permission to save photos to your device.',
-            [{ text: 'OK' }]
-          );
-          return;
-        }
-      }
-
-      // Save to media library (on native platforms)
-      if (Platform.OS !== 'web') {
-        await MediaLibrary.saveToLibraryAsync(photoUri);
-        
-        Alert.alert(
-          'Photo Saved!',
-          'Your photo has been saved to your device.',
-          [
-            {
-              text: 'View Gallery',
-              onPress: () => {
-                onSave();
-                router.push('/gallery');
-              }
-            },
-            {
-              text: 'Take Another',
-              onPress: onSave
-            }
-          ]
-        );
-      } else {
-        // Web fallback - just show success message
-        Alert.alert(
-          'Photo Captured!',
-          'Your photo has been processed successfully.',
-          [{ text: 'OK', onPress: onSave }]
-        );
-      }
-    } catch (error) {
-      console.error('Error saving photo:', error);
-      Alert.alert(
-        'Save Failed',
-        'Unable to save the photo. Please try again.',
-        [{ text: 'OK' }]
-      );
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  return (
-    <View className="flex-1 bg-black">
-      <StatusBar style="light" />
-      
-      {/* Photo Display */}
-      <View className="flex-1 justify-center items-center">
-        <Image
-          source={{ uri: photoUri }}
-          style={{ width: screenWidth, height: screenHeight * 0.8 }}
-          resizeMode="contain"
-        />
-      </View>
-
-      {/* Header with close button */}
-      <View style={{
-        position: 'absolute',
-        top: Platform.OS === 'ios' ? 60 : 40,
-        left: 20,
-        zIndex: 1,
-      }}>
-        <TouchableOpacity
-          className="w-12 h-12 rounded-full bg-black/50 justify-center items-center"
-          onPress={onRetake}
-        >
-          <X size={24} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Bottom Controls */}
-      <View style={{
-        position: 'absolute',
-        bottom: Platform.OS === 'ios' ? 120 : 100,
-        left: 0,
-        right: 0,
-        paddingHorizontal: 20,
-      }}>
-        <View className="flex-row justify-around items-center">
-          {/* Retake Button */}
-          <TouchableOpacity
-            className="bg-white/20 px-6 py-4 rounded-full items-center min-w-[120px] border border-white/30"
-            onPress={onRetake}
-            disabled={isSaving}
-          >
-            <RotateCcw size={24} color="#fff" />
-            <Text className="text-white text-sm font-semibold mt-1">Retake</Text>
-          </TouchableOpacity>
-
-          {/* Save Button */}
-          <TouchableOpacity
-            className="bg-blue-500 border-blue-500 px-6 py-4 rounded-full items-center min-w-[120px] border"
-            onPress={handleSave}
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <>
-                <Loader2 size={24} color="#fff" />
-                <Text className="text-white text-sm font-semibold mt-1">Saving...</Text>
-              </>
-            ) : (
-              <>
-                <Check size={24} color="#fff" />
-                <Text className="text-white text-sm font-semibold mt-1">Save</Text>
-              </>
-            )}
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
-  );
-}
+      >
+          className="w-full"
+          style={{ height: screenHeight * 0.8 }}
