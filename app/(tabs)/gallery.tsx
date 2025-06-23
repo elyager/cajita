@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Camera, Image as ImageIcon, Grid3X3 } from 'lucide-react-native';
+import { Camera, Image as ImageIcon, Grid3x3 as Grid3X3 } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
 const imageSize = (width - 60) / 3;
