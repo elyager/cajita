@@ -94,53 +94,53 @@ export default function GalleryScreen() {
 
   const renderPhoto = ({ item }: { item: Photo }) => (
     <TouchableOpacity
-      style={styles.photoContainer}
+      className="m-1 rounded-lg overflow-hidden bg-gray-100"
       onPress={() => handlePhotoPress(item)}
     >
       <Image
         source={{ uri: item.uri }}
-        style={styles.photo}
+        style={{ width: imageSize, height: imageSize }}
         resizeMode="cover"
       />
     </TouchableOpacity>
   );
 
   const renderEmptyState = () => (
-    <View style={styles.emptyState}>
+    <View className="flex-1 justify-center items-center px-10">
       {Platform.OS === 'web' ? (
         <>
           <AlertCircle size={64} color="#666" />
-          <Text style={styles.emptyTitle}>Gallery Not Available</Text>
-          <Text style={styles.emptyText}>
+          <Text className="text-2xl font-bold text-gray-800 mt-5 mb-3 text-center">Gallery Not Available</Text>
+          <Text className="text-base text-gray-600 text-center leading-6 mb-7">
             Gallery access is not supported in web browsers. Your photos will be available when using the app on mobile devices.
           </Text>
         </>
       ) : !permission?.granted ? (
         <>
           <ImageIcon size={64} color="#666" />
-          <Text style={styles.emptyTitle}>Gallery Access Required</Text>
-          <Text style={styles.emptyText}>
+          <Text className="text-2xl font-bold text-gray-800 mt-5 mb-3 text-center">Gallery Access Required</Text>
+          <Text className="text-base text-gray-600 text-center leading-6 mb-7">
             We need permission to access your photos to show them in the gallery.
           </Text>
           <TouchableOpacity
-            style={styles.permissionButton}
+            className="bg-blue-500 px-7 py-4 rounded-xl"
             onPress={requestPermission}
           >
-            <Text style={styles.permissionButtonText}>Grant Permission</Text>
+            <Text className="text-white text-base font-semibold">Grant Permission</Text>
           </TouchableOpacity>
         </>
       ) : (
         <>
           <Camera size={64} color="#666" />
-          <Text style={styles.emptyTitle}>No Photos Yet</Text>
-          <Text style={styles.emptyText}>
+          <Text className="text-2xl font-bold text-gray-800 mt-5 mb-3 text-center">No Photos Yet</Text>
+          <Text className="text-base text-gray-600 text-center leading-6 mb-7">
             Start taking photos with the camera to see them here!
           </Text>
           <TouchableOpacity
-            style={styles.cameraButton}
+            className="bg-black px-7 py-4 rounded-xl"
             onPress={() => router.push('/')}
           >
-            <Text style={styles.cameraButtonText}>Open Camera</Text>
+            <Text className="text-white text-base font-semibold">Open Camera</Text>
           </TouchableOpacity>
         </>
       )}
@@ -159,8 +159,8 @@ export default function GalleryScreen() {
       </View>
 
       {loading ? (
-        <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>Loading photos...</Text>
+        <View className="flex-1 justify-center items-center">
+          <Text className="text-base text-gray-600">Loading photos...</Text>
         </View>
       ) : photos.length === 0 ? (
         renderEmptyState()
@@ -170,78 +170,10 @@ export default function GalleryScreen() {
           renderItem={renderPhoto}
           keyExtractor={(item) => item.id}
           numColumns={3}
-          contentContainerStyle={styles.photoGrid}
+          contentContainerStyle={{ padding: 10 }}
           showsVerticalScrollIndicator={false}
         />
       )}
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    fontSize: 16,
-    color: '#666',
-  },
-  photoGrid: {
-    padding: 10,
-  },
-  photoContainer: {
-    margin: 5,
-    borderRadius: 8,
-    overflow: 'hidden',
-    backgroundColor: '#f5f5f5',
-  },
-  photo: {
-    width: imageSize,
-    height: imageSize,
-  },
-  emptyState: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 40,
-  },
-  emptyTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-    marginTop: 20,
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  emptyText: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 30,
-  },
-  permissionButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 30,
-    paddingVertical: 16,
-    borderRadius: 12,
-  },
-  permissionButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  cameraButton: {
-    backgroundColor: '#000',
-    paddingHorizontal: 30,
-    paddingVertical: 16,
-    borderRadius: 12,
-  },
-  cameraButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
