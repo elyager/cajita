@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   Image,
   TouchableOpacity,
@@ -149,12 +148,12 @@ export default function GalleryScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex-1 bg-white">
       <StatusBar style="dark" />
       
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Gallery</Text>
-        <Text style={styles.headerSubtitle}>
+      <View className="px-5 py-4 border-b border-gray-200">
+        <Text className="text-3xl font-bold text-black">Gallery</Text>
+        <Text className="text-base text-gray-600 mt-1">
           {photos.length} {photos.length === 1 ? 'photo' : 'photos'}
         </Text>
       </View>
@@ -180,26 +179,6 @@ export default function GalleryScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  headerSubtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 4,
-  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
