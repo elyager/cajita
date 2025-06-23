@@ -8,6 +8,7 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { Camera, RotateCcw, Zap, ZapOff, Loader as Loader2 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
@@ -109,7 +110,7 @@ export default function CameraScreen() {
 
   return (
     <View className="flex-1 bg-black">
-      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
       
       <CameraView
         ref={cameraRef}
@@ -119,49 +120,53 @@ export default function CameraScreen() {
         mode="picture"
       >
         {/* Header Controls */}
-        <View className="absolute top-16 right-5 z-10">
-          <TouchableOpacity
-            className="w-12 h-12 rounded-full bg-black/50 justify-center items-center mb-2"
-            onPress={toggleFlash}
-          >
-            {flash === 'on' ? (
-              <Zap size={24} color="#fff" />
-            ) : (
-              <ZapOff size={24} color="#fff" />
-            )}
-          </TouchableOpacity>
-        </View>
+        <SafeAreaView className="absolute top-0 left-0 right-0 z-10">
+          <View className="flex-row justify-end px-5 pt-4">
+            <TouchableOpacity
+              className="w-12 h-12 rounded-full bg-black/50 justify-center items-center"
+              onPress={toggleFlash}
+            >
+              {flash === 'on' ? (
+                <Zap size={24} color="#fff" />
+              ) : (
+                <ZapOff size={24} color="#fff" />
+              )}
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
 
         {/* Bottom Controls */}
-        <View className="absolute bottom-32 left-0 right-0 px-5">
-          <View className="flex-row justify-between items-center">
-            {/* Flip Camera Button */}
-            <TouchableOpacity
-              className="w-12 h-12 rounded-full bg-white/20 justify-center items-center"
-              onPress={toggleCameraFacing}
-            >
-              <RotateCcw size={24} color="#fff" />
-            </TouchableOpacity>
+        <SafeAreaView className="absolute bottom-0 left-0 right-0">
+          <View className="px-5 pb-4">
+            <View className="flex-row justify-between items-center">
+              {/* Flip Camera Button */}
+              <TouchableOpacity
+                className="w-12 h-12 rounded-full bg-white/20 justify-center items-center"
+                onPress={toggleCameraFacing}
+              >
+                <RotateCcw size={24} color="#fff" />
+              </TouchableOpacity>
 
-            {/* Capture Button */}
-            <TouchableOpacity
-              className={`w-20 h-20 rounded-full bg-white justify-center items-center shadow-lg ${isCapturing ? 'opacity-70' : ''}`}
-              onPress={takePicture}
-              disabled={isCapturing}
-            >
-              <View className="w-[70px] h-[70px] rounded-full bg-white justify-center items-center border-4 border-black">
-                {isCapturing ? (
-                  <Loader2 size={28} color="#000" />
-                ) : (
-                  <Camera size={28} color="#000" />
-                )}
-              </View>
-            </TouchableOpacity>
+              {/* Capture Button */}
+              <TouchableOpacity
+                className={`w-20 h-20 rounded-full bg-white justify-center items-center shadow-lg ${isCapturing ? 'opacity-70' : ''}`}
+                onPress={takePicture}
+                disabled={isCapturing}
+              >
+                <View className="w-[70px] h-[70px] rounded-full bg-white justify-center items-center border-4 border-black">
+                  {isCapturing ? (
+                    <Loader2 size={28} color="#000" />
+                  ) : (
+                    <Camera size={28} color="#000" />
+                  )}
+                </View>
+              </TouchableOpacity>
 
-            {/* Placeholder for symmetry */}
-            <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center" />
+              {/* Placeholder for symmetry */}
+              <View className="w-12 h-12 rounded-full bg-white/20 justify-center items-center" />
+            </View>
           </View>
-        </View>
+        </SafeAreaView>
       </CameraView>
     </View>
   );
