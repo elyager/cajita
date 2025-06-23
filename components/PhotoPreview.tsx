@@ -92,7 +92,6 @@ export function PhotoPreview({ photoUri, onRetake, onSave }: PhotoPreviewProps) 
       <View className="flex-1 justify-center items-center">
         <Image
           source={{ uri: photoUri }}
-          style={{ width: screenWidth, height: screenHeight * 0.8 }}
           resizeMode="contain"
         />
       </View>
