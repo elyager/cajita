@@ -114,7 +114,6 @@ export default function CameraScreen() {
       <CameraView
         ref={cameraRef}
         className="flex-1"
-        style={{ width: screenWidth, height: screenHeight }}
         facing={facing}
         flash={flash}
         mode="picture"
