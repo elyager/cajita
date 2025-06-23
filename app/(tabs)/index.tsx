@@ -113,13 +113,13 @@ export default function CameraScreen() {
       
       <CameraView
         ref={cameraRef}
-        className="flex-1"
+        className="flex-1 w-full h-full"
         facing={facing}
         flash={flash}
         mode="picture"
       >
         {/* Header Controls */}
-        <View>
+        <View className="absolute top-16 right-5 z-10">
           <TouchableOpacity
             className="w-12 h-12 rounded-full bg-black/50 justify-center items-center mb-2"
             onPress={toggleFlash}
@@ -133,7 +133,7 @@ export default function CameraScreen() {
         </View>
 
         {/* Bottom Controls */}
-        <View>
+        <View className="absolute bottom-32 left-0 right-0 px-5">
           <View className="flex-row justify-between items-center">
             {/* Flip Camera Button */}
             <TouchableOpacity
@@ -145,7 +145,7 @@ export default function CameraScreen() {
 
             {/* Capture Button */}
             <TouchableOpacity
-              className={`w-20 h-20 rounded-full bg-white justify-center items-center ${isCapturing ? 'opacity-70' : ''}`}
+              className={`w-20 h-20 rounded-full bg-white justify-center items-center shadow-lg ${isCapturing ? 'opacity-70' : ''}`}
               onPress={takePicture}
               disabled={isCapturing}
             >
