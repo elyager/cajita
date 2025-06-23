@@ -146,13 +146,6 @@ export default function CameraScreen() {
             {/* Capture Button */}
             <TouchableOpacity
               className={`w-20 h-20 rounded-full bg-white justify-center items-center ${isCapturing ? 'opacity-70' : ''}`}
-              style={{
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5,
-              }}
               onPress={takePicture}
               disabled={isCapturing}
             >
