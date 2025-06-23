@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
   Image,
   Dimensions,
@@ -86,22 +85,27 @@ export function PhotoPreview({ photoUri, onRetake, onSave }: PhotoPreviewProps) 
   };
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-black">
       <StatusBar style="light" />
       
       {/* Photo Display */}
-      <View style={styles.imageContainer}>
+      <View className="flex-1 justify-center items-center">
         <Image
           source={{ uri: photoUri }}
-          style={styles.image}
+          style={{ width: screenWidth, height: screenHeight * 0.8 }}
           resizeMode="contain"
         />
       </View>
 
       {/* Header with close button */}
-      <View style={styles.header}>
+      <View style={{
+        position: 'absolute',
+        top: Platform.OS === 'ios' ? 60 : 40,
+        left: 20,
+        zIndex: 1,
+      }}>
         <TouchableOpacity
-          style={styles.headerButton}
+          className="w-12 h-12 rounded-full bg-black/50 justify-center items-center"
           onPress={onRetake}
         >
           <X size={24} color="#fff" />
@@ -109,33 +113,39 @@ export function PhotoPreview({ photoUri, onRetake, onSave }: PhotoPreviewProps) 
       </View>
 
       {/* Bottom Controls */}
-      <View style={styles.bottomControls}>
-        <View style={styles.controlsRow}>
+      <View style={{
+        position: 'absolute',
+        bottom: Platform.OS === 'ios' ? 120 : 100,
+        left: 0,
+        right: 0,
+        paddingHorizontal: 20,
+      }}>
+        <View className="flex-row justify-around items-center">
           {/* Retake Button */}
           <TouchableOpacity
-            style={styles.actionButton}
+            className="bg-white/20 px-6 py-4 rounded-full items-center min-w-[120px] border border-white/30"
             onPress={onRetake}
             disabled={isSaving}
           >
             <RotateCcw size={24} color="#fff" />
-            <Text style={styles.actionButtonText}>Retake</Text>
+            <Text className="text-white text-sm font-semibold mt-1">Retake</Text>
           </TouchableOpacity>
 
           {/* Save Button */}
           <TouchableOpacity
-            style={[styles.actionButton, styles.saveButton]}
+            className="bg-blue-500 border-blue-500 px-6 py-4 rounded-full items-center min-w-[120px] border"
             onPress={handleSave}
             disabled={isSaving}
           >
             {isSaving ? (
               <>
                 <Loader2 size={24} color="#fff" />
-                <Text style={styles.actionButtonText}>Saving...</Text>
+                <Text className="text-white text-sm font-semibold mt-1">Saving...</Text>
               </>
             ) : (
               <>
                 <Check size={24} color="#fff" />
-                <Text style={styles.actionButtonText}>Save</Text>
+                <Text className="text-white text-sm font-semibold mt-1">Save</Text>
               </>
             )}
           </TouchableOpacity>
@@ -144,65 +154,3 @@ export function PhotoPreview({ photoUri, onRetake, onSave }: PhotoPreviewProps) 
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: screenWidth,
-    height: screenHeight * 0.8,
-  },
-  header: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 40,
-    left: 20,
-    zIndex: 1,
-  },
-  headerButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottomControls: {
-    position: 'absolute',
-    bottom: Platform.OS === 'ios' ? 120 : 100,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 20,
-  },
-  controlsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  actionButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    borderRadius: 25,
-    alignItems: 'center',
-    minWidth: 120,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
-  },
-  saveButton: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
-  },
-  actionButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
-    marginTop: 4,
-  },
-});
